@@ -39,7 +39,7 @@ public class HealthlinkSelenium {
 
     //get rid of logger stuff here
 
-   private final ElementHandler elementHandler = new ElementHandler(extentLogger);
+   private final ElementHandler elementHandler = new ElementHandler();
 
     //like so
     //private final ElementHandler elementHandler = new ElementHandler(reporter);

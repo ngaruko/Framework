@@ -27,259 +27,69 @@ public class AlertHandler {
     private int webDriverWait_alertIsPresent = 5;
     
     private ScreenshotManager screenshotManager = new ScreenshotManager();
+
+    private Alert alert;
     
-    /**
-     * Switch to alert, verify text equals and accept it.
-     * 
-     * @param expectedText Expected text on alert.
-     */
-    public void verifyAlertTextEqualsAndAcceptIt(String expectedText) {
+
+   public String getAlertText(){
+
+       try {
+           WebDriverWait webDriverWait = new WebDriverWait(HealthlinkSelenium.driver, webDriverWait_alertIsPresent);
+           webDriverWait.until(ExpectedConditions.alertIsPresent());
+       }
+       catch (Throwable throwable ) {
+           // After wait, go forward if alert is not present
+       }
+       try {
+           alert = HealthlinkSelenium.driver.switchTo().alert();
+           return alert.getText();
+
+       }
+       catch (Throwable throwable ) {
+
+           throw new RuntimeException("Step:- Verify alert text and accept it   Failure:- Unable to get text from alert, Exception occured: " + throwable.getMessage());
+       }
+   }
+
+    public boolean isTextEqualTo(String expectedText) {
+
+        String actualAlertText = getAlertText();
+
+            return actualAlertText.trim().equals(expectedText.trim());
+
+    }
+
+
+    public void acceptAlert(){
+        //todo exception handling
+
+            alert.accept();
+    }
+    
+
+    public boolean alertTextContains(String expectedText) {
+        //Alert alert = null;
+        String actualAlertText=getAlertText();
+
+       return actualAlertText.trim().contains(expectedText.trim());
+    }
+    
+
+    public boolean alertTextWithRegEx(String expectedRegEx) {
         Alert alert;
-        String actualAlertText;
-        boolean gotAlertText;
-        try {
-            WebDriverWait webDriverWait = new WebDriverWait(HealthlinkSelenium.driver, webDriverWait_alertIsPresent);
-            webDriverWait.until(ExpectedConditions.alertIsPresent());
-        }
-        catch (Throwable throwable ) {
-            // After wait, go forward if alert is not present
-        }
-        try {
-            alert = HealthlinkSelenium.driver.switchTo().alert();
-            actualAlertText = alert.getText();
-            gotAlertText = true;
-        }
-        catch (Throwable throwable ) {
+        String actualAlertText=getAlertText();
 
-            throw new RuntimeException("Step:- Verify alert text and accept it   Failure:- Unable to get text from alert, Exception occured: " + throwable.getMessage());
-        }
-        if(gotAlertText) {
-            if(actualAlertText.trim().equals(expectedText.trim())) {
-
-                alert.accept();
-            }
-            else {
-
-                alert.accept();
-                throw new RuntimeException("Step:- Verify alert text and accept it   Failure:- Actual text on alert is: "+actualAlertText+", which is not equal to expected text: "+expectedText);
-            }
-        }         
+        return  actualAlertText.trim().matches(expectedRegEx.trim());
     }
     
-    /**
-     * Switch to alert, verify text contains and accept it.
-     * 
-     * @param expectedText Expected partial text on alert.
-     */
-    public void verifyAlertTextContainsAndAcceptIt(String expectedText) {
-        Alert alert = null;
-        String actualAlertText="";
-        boolean gotAlertText = false;
-        try {
-            WebDriverWait webDriverWait = new WebDriverWait(HealthlinkSelenium.driver, webDriverWait_alertIsPresent);
-            webDriverWait.until(ExpectedConditions.alertIsPresent());   
-        }
-        catch (Throwable throwable ) {
-            // After wait, go forward if alert is not present
-        }
-        try {
-            alert = HealthlinkSelenium.driver.switchTo().alert();
-            actualAlertText = alert.getText();
-            gotAlertText = true;
-        }
-        catch (Throwable throwable ) {
 
-            System.out.println("Step:- Verify alert text and accept it   Failure:- Unable to get text from alert, Exception occured: " + throwable.getMessage());
-        }
-        if(gotAlertText) {
-            if(actualAlertText.trim().contains(expectedText.trim())) {
-
-                alert.accept(); 
-            }
-            else {
-
-                    System.out.println("<b>Step - </b> Verify alert text and accept it &nbsp;&nbsp;&nbsp;&nbsp; <b>Expected - </b> Alert text should contains: <mark>"+expectedText+"</mark> &nbsp;&nbsp;&nbsp;&nbsp; <b>Actual - </b> Alert text is: <mark>"+actualAlertText+"</mark> " + HealthlinkSelenium.extentLogger.addScreenCapture(screenshotManager.getFullScreenshot()));
-
-                alert.accept(); 
-                throw new RuntimeException("Step:- Verify alert text and accept it   Failure:- Actual text on alert is: "+actualAlertText+", which does not contains expected text: "+expectedText);
-            }
-        }        
+    public void dismissAlert(Alert alert) {
+//todo exception handling
+        alert.dismiss();
     }
+
+
     
-    /**
-     * Switch to alert, verify text with regular expression and accept it.
-     * 
-     * @param expectedRegEx Regular expression of expected text on alert.
-     */
-    public void verifyAlertTextWithRegExAndAcceptIt(String expectedRegEx) {
-        Alert alert;
-        String actualAlertText;
-        boolean gotAlertText;
-        try {
-            WebDriverWait webDriverWait = new WebDriverWait(HealthlinkSelenium.driver, webDriverWait_alertIsPresent);
-            webDriverWait.until(ExpectedConditions.alertIsPresent());   
-        }
-        catch (Throwable t) {
-            // After wait, go forward if alert is not present
-        }
-        try {
-            alert = HealthlinkSelenium.driver.switchTo().alert();
-            actualAlertText = alert.getText();
-            gotAlertText = true;
-        }
-        catch (Throwable t) {
 
-                HealthlinkSelenium.extentLogger.log(LogStatus.ERROR, "<b>Step - </b> Verify alert text and accept it &nbsp;&nbsp;&nbsp;&nbsp; <b>Expected - </b> Alert text should match with regular expression: <mark>"+expectedRegEx+"</mark> &nbsp;&nbsp;&nbsp;&nbsp; <b>Actual - </b> <mark>Unable to get text from alert</mark> " + HealthlinkSelenium.extentLogger.addScreenCapture(screenshotManager.getFullScreenshot()) + t.getMessage());
-
-            throw new RuntimeException("Step:- Verify alert text and accept it   Failure:- Unable to get text from alert, Exception occured: " + t.getMessage());
-        }
-        if(gotAlertText) {
-            if(actualAlertText.trim().matches(expectedRegEx.trim())) {
-
-                    System.out.println("<b>Step - </b> Verify alert text and accept it &nbsp;&nbsp;&nbsp;&nbsp; <b>Expected - </b> Alert text should match with regular expression: "+expectedRegEx+" &nbsp;&nbsp;&nbsp;&nbsp; <b>Actual - </b> Alert text is: "+actualAlertText);
-
-                alert.accept(); 
-            }
-            else {
-
-                    System.out.println("<b>Step - </b> Verify alert text and accept it &nbsp;&nbsp;&nbsp;&nbsp; <b>Expected - </b> Alert text should match with regular expression: <mark>"+expectedRegEx+"</mark> &nbsp;&nbsp;&nbsp;&nbsp; <b>Actual - </b> Alert text is: <mark>"+actualAlertText+"</mark> " + HealthlinkSelenium.extentLogger.addScreenCapture(screenshotManager.getFullScreenshot()));
-
-                alert.accept(); 
-                throw new RuntimeException("Step:- Verify alert text and accept it   Failure:- Actual text on alert is: "+actualAlertText+", which does not match with regular expression: "+expectedRegEx);
-            }
-        }
-    }
-    
-    /**
-     * Switch to alert, verify text equals and dismiss it.
-     * 
-     * @param expectedText Expected text on alert.
-     */
-    public void verifyAlertTextEqualsAndDismissIt(String expectedText) {
-        Alert alert;
-        String actualAlertText;
-        boolean gotAlertText;
-        try {
-            WebDriverWait webDriverWait = new WebDriverWait(HealthlinkSelenium.driver, webDriverWait_alertIsPresent);
-            webDriverWait.until(ExpectedConditions.alertIsPresent());   
-        }
-        catch (Throwable t) {
-            // After wait, go forward if alert is not present
-        }
-        try {
-            alert = HealthlinkSelenium.driver.switchTo().alert();
-            actualAlertText = alert.getText();  
-            gotAlertText = true;
-        }
-        catch (Throwable t) {
-
-                System.out.println("<b>Step - </b> Verify alert text and dismiss it &nbsp;&nbsp;&nbsp;&nbsp; <b>Expected - </b> Alert text should be: <mark>"+expectedText+"</mark> &nbsp;&nbsp;&nbsp;&nbsp; <b>Actual - </b> <mark>Unable to get text from alert</mark> " + HealthlinkSelenium.extentLogger.addScreenCapture(screenshotManager.getFullScreenshot()) + t.getMessage());
-
-            throw new RuntimeException("Step:- Verify alert text and dismiss it   Failure:- Unable to get text from alert, Exception occured: " + t.getMessage());
-        }
-        if(gotAlertText) {
-            if(actualAlertText.trim().equals(expectedText.trim())) {
-
-                    System.out.println("<b>Step - </b> Verify alert text and dismiss it &nbsp;&nbsp;&nbsp;&nbsp; <b>Expected - </b> Alert text should be: "+expectedText+" &nbsp;&nbsp;&nbsp;&nbsp; <b>Actual - </b> Alert text is: "+actualAlertText);
-
-                alert.dismiss();
-            }
-            else {
-
-                    System.out.println("<b>Step - </b> Verify alert text and dismiss it &nbsp;&nbsp;&nbsp;&nbsp; <b>Expected - </b> Alert text should be: <mark>"+expectedText+"</mark> &nbsp;&nbsp;&nbsp;&nbsp; <b>Actual - </b> Alert text is: <mark>"+actualAlertText+"</mark> " + HealthlinkSelenium.extentLogger.addScreenCapture(screenshotManager.getFullScreenshot()));
-
-                alert.dismiss();
-                throw new RuntimeException("Step:- Verify alert text and dismiss it   Failure:- Actual text on alert is: "+actualAlertText+", which is not equal to expected text: "+expectedText);
-            }
-        }
-    }
-    
-    /**
-     * Switch to alert, verify text contains and dismiss it.
-     * 
-     * @param expectedText Expected partial text on alert.
-     */
-    public void verifyAlertTextContainsAndDismissIt(String expectedText) {
-        Alert alert;
-        String actualAlertText;
-        boolean gotAlertText;
-        try {
-            WebDriverWait webDriverWait = new WebDriverWait(HealthlinkSelenium.driver, webDriverWait_alertIsPresent);
-            webDriverWait.until(ExpectedConditions.alertIsPresent());   
-        }
-        catch (Throwable throwable ) {
-            // After wait, go forward if alert is not present
-        }
-        try {
-            alert = HealthlinkSelenium.driver.switchTo().alert();
-            actualAlertText = alert.getText();  
-            gotAlertText = true;
-        }
-        catch (Throwable throwable ) {
-
-                System.out.println("<b>Step - </b> Verify alert text and dismiss it &nbsp;&nbsp;&nbsp;&nbsp; <b>Expected - </b> Alert text should contains: <mark>"+expectedText+"</mark> &nbsp;&nbsp;&nbsp;&nbsp; <b>Actual - </b> <mark>Unable to get text from alert</mark> " + HealthlinkSelenium.extentLogger.addScreenCapture(screenshotManager.getFullScreenshot()) + throwable.getMessage());
-
-            throw new RuntimeException("Step:- Verify alert text and dismiss it   Failure:- Unable to get text from alert, Exception occured: " + throwable.getMessage());
-        }
-        if(gotAlertText) {
-            if(actualAlertText.trim().contains(expectedText.trim())) {
-
-                    System.out.println("<b>Step - </b> Verify alert text and dismiss it &nbsp;&nbsp;&nbsp;&nbsp; <b>Expected - </b> Alert text should contains: "+expectedText+" &nbsp;&nbsp;&nbsp;&nbsp; <b>Actual - </b> Alert text is: "+actualAlertText);
-
-                alert.dismiss();
-            }
-            else {
-
-                    System.out.println("<b>Step - </b> Verify alert text and dismiss it &nbsp;&nbsp;&nbsp;&nbsp; <b>Expected - </b> Alert text should contains: <mark>"+expectedText+"</mark> &nbsp;&nbsp;&nbsp;&nbsp; <b>Actual - </b> Alert text is: <mark>"+actualAlertText+"</mark> " + HealthlinkSelenium.extentLogger.addScreenCapture(screenshotManager.getFullScreenshot()));
-
-                alert.dismiss();
-                throw new RuntimeException("Step:- Verify alert text and dismiss it   Failure:- Actual text on alert is: "+actualAlertText+", which is not equal to expected text: "+expectedText);
-            }
-        }
-    }
-    
-    /**
-     * Switch to alert, verify text with regular expression and dismiss it.
-     * 
-     * @param expectedRegEx Regular expression of expected text on alert.
-     */
-    public void verifyAlertTextWithRegExAndDismissIt(String expectedRegEx) {
-        Alert alert;
-        String actualAlertText;
-        boolean gotAlertText;
-        try {
-            WebDriverWait webDriverWait = new WebDriverWait(HealthlinkSelenium.driver, webDriverWait_alertIsPresent);
-            webDriverWait.until(ExpectedConditions.alertIsPresent());   
-        }
-        catch (Throwable throwable ) {
-            // After wait, go forward if alert is not present
-        }
-        try {
-            alert = HealthlinkSelenium.driver.switchTo().alert();
-            actualAlertText = alert.getText();
-            gotAlertText = true;
-        }
-        catch (Throwable throwable ) {
-
-                System.out.println("<b>Step - </b> Verify alert text and dismiss it &nbsp;&nbsp;&nbsp;&nbsp; <b>Expected - </b> Alert text should match with regular expression: <mark>"+expectedRegEx+"</mark> &nbsp;&nbsp;&nbsp;&nbsp; <b>Actual - </b> <mark>Unable to get text from alert</mark> " + HealthlinkSelenium.extentLogger.addScreenCapture(screenshotManager.getFullScreenshot()) + throwable.getMessage());
-
-            throw new RuntimeException("Step:- Verify alert text and dismiss it   Failure:- Unable to get text from alert, Exception occured: " + throwable.getMessage());
-        }
-        if(gotAlertText) {
-            if(actualAlertText.trim().matches(expectedRegEx.trim())) {
-
-                    System.out.println("<b>Step - </b> Verify alert text and dismiss it &nbsp;&nbsp;&nbsp;&nbsp; <b>Expected - </b> Alert text should match with regular expression: "+expectedRegEx+" &nbsp;&nbsp;&nbsp;&nbsp; <b>Actual - </b> Alert text is: "+actualAlertText);
-
-                alert.dismiss();
-            }
-            else {
-
-                    System.out.println("<b>Step - </b> Verify alert text and dismiss it &nbsp;&nbsp;&nbsp;&nbsp; <b>Expected - </b> Alert text should match with regular expression: <mark>"+expectedRegEx+"</mark> &nbsp;&nbsp;&nbsp;&nbsp; <b>Actual - </b> Alert text is: <mark>"+actualAlertText+"</mark> " + HealthlinkSelenium.extentLogger.addScreenCapture(screenshotManager.getFullScreenshot()));
-
-                alert.dismiss();
-                throw new RuntimeException("Step:- Verify alert text and dismiss it   Failure:- Actual text on alert is: "+actualAlertText+", which does not match with regular expression: "+expectedRegEx);
-            }
-        }
-    }
 
 }
