@@ -17,8 +17,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import com.relevantcodes.extentreports.ExtentTest;
-import com.relevantcodes.extentreports.LogStatus;
 
 /**
  * This class contains all methods related to element
@@ -37,12 +35,12 @@ public class ElementHandler {
     private int webDriverWait_invisibilityOfElementLocated = 15;
     private int webDriverWait_presenceOfElementLocated = 15;
 
-    private HandleElements handleElements = new HandleElements();
+
     private ScreenshotManager screenshotManager = new ScreenshotManager();
 
 //constructor
 
-   
+
 
     public ElementHandler() {
 
@@ -59,10 +57,10 @@ public class ElementHandler {
 
     }
 
-    private boolean isElementPresent(By elementLocator) {
+    public boolean isElementPresent(By elementLocator) {
 
         try {
-            return handleElements.getElementCount(elementLocator) >= 1;
+            return getElementCount(elementLocator) >= 1;
 
         } catch (Exception e) {
 

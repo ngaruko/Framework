@@ -23,6 +23,8 @@ import com.relevantcodes.extentreports.ExtentTest;
  * @author jaspal
  */
 public class HealthlinkSelenium {
+
+    // TODO: 2/13/2017 Refactor ot remove this 
     
    public static ExtentReports extentReport;
 
@@ -35,7 +37,7 @@ public class HealthlinkSelenium {
     private final BrowserHandler browserHandler = new BrowserHandler();
     private final CheckboxHandler checkboxHandler = new CheckboxHandler();
     private final CookiesHandler cookiesHandler = new CookiesHandler();
-    private final DropdownHandler dropdownHandler = new DropdownHandler(extentLogger);
+    private final DropdownHandler dropdownHandler = new DropdownHandler();
 
     //get rid of logger stuff here
 
