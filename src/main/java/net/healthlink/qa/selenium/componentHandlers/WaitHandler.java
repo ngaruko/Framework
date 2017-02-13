@@ -12,10 +12,10 @@
 package net.healthlink.qa.selenium.componentHandlers;
 
 import com.google.common.base.Function;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -23,43 +23,78 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.util.NoSuchElementException;
 import java.util.concurrent.TimeUnit;
 
-
 import static net.healthlink.qa.selenium.componentHandlers.HealthlinkSelenium.driver;
+import static net.healthlink.qa.selenium.utils.Constants.ELEMENT_LOAD_TIMEOUT;
 
 /**
  * This class contains method related to wait
  *
- * @author jaspal
+ * @author Bede
  */
 public class WaitHandler {
 
 
+    private static final long POLLING_INTERVAL = 5;
 
+    public static void wait(int waitTimeInMilliseconds) throws InterruptedException {
 
-    public void wait(int waitTimeInMilliseconds) throws InterruptedException {
-
-            Thread.sleep(waitTimeInMilliseconds);
+        Thread.sleep(waitTimeInMilliseconds);
     }
 
-public WebElement waitForElement(final By locator){
+
+    public Function<WebDriver, Boolean> waitForWebElementFunc(final By locator) {
+
+        return ((x) -> {
+            if (x.findElements(locator).size() == 1)
+                return true;
+            return false;
+
+        });
 
 
-    Wait<WebDriver> wait = new FluentWait<WebDriver>(HealthlinkSelenium.driver)
-            .withTimeout(20, TimeUnit.SECONDS)
-            .pollingEvery(5, TimeUnit.SECONDS)
-            .ignoring(NoSuchElementException.class);
-
-    WebElement element;
-    element = wait.until(new Function<WebDriver, WebElement>() {
-        public WebElement apply(WebDriver driver) {
-            return driver.findElement(locator);
-        }
-    });
-    return element;
-}
+    }
 
 
+    public Function<WebDriver, WebElement> waitForWebElementInPageFunc(final By locator) {
 
+        return ((x) -> {
+            if (x.findElements(locator).size() == 1)
+                return x.findElement(locator);
+            return null;
+
+        });
+
+
+    }
+
+    //wait for element
+    public boolean waitForWebElement(By locator, long timeout) throws InterruptedException {
+        wait(ELEMENT_LOAD_TIMEOUT);
+        WebDriverWait wait = getWebDriverWait(timeout);
+        Boolean flag = wait.until(waitForWebElementFunc(locator));
+        wait(ELEMENT_LOAD_TIMEOUT);
+        return flag;
+    }
+
+    //wait for element in page
+    public WebElement waitForWebElementInPage(By locator, long timeout) throws InterruptedException {
+        wait(ELEMENT_LOAD_TIMEOUT);
+        WebDriverWait wait = getWebDriverWait(timeout);
+        WebElement element = wait.until(waitForWebElementInPageFunc(locator));
+        wait(ELEMENT_LOAD_TIMEOUT);
+        return element;
+    }
+
+
+    private WebDriverWait getWebDriverWait(long timeout) throws InterruptedException {
+        wait(ELEMENT_LOAD_TIMEOUT);
+        Wait<WebDriver> wait = new FluentWait<>(driver)
+                .withTimeout(timeout, TimeUnit.SECONDS)
+                .pollingEvery(POLLING_INTERVAL, TimeUnit.SECONDS)
+                .ignoring(NoSuchElementException.class);
+
+        return (WebDriverWait) wait;
+    }
 
 
 }

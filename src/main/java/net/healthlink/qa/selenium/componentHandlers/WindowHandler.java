@@ -56,14 +56,14 @@ public class WindowHandler {
                 numberOfWindows = HealthlinkSelenium.driver.getWindowHandles().size();
                 if(HealthlinkSelenium.extentReport != null) {
                     HealthlinkSelenium.extentLogger.log(LogStatus.ERROR, "<b>Step - </b> Switch to another window &nbsp;&nbsp;&nbsp;&nbsp; <b>Expected - </b> Script focus should switched to another window &nbsp;&nbsp;&nbsp;&nbsp; <b>Actual - </b> Number of window(s) is/are: <mark>"+numberOfWindows+"</mark> which is/are not equal to: <mark>"+expectedNumberOfWindows+"</mark>" + HealthlinkSelenium.extentLogger.addScreenCapture(screenshotManager.getFullScreenshot()) + throwable.getMessage());
-                }           
+                }
                 throw new RuntimeException("Step:- Switch to another window   Failure:- Number of window(s) is/are: "+numberOfWindows+" which is/are not equal to: "+expectedNumberOfWindows+", Exception occured: " + throwable.getMessage());
             }
         }
         else if(expectedNumberOfWindows <= 1) {
             if(HealthlinkSelenium.extentReport != null) {
                 HealthlinkSelenium.extentLogger.log(LogStatus.WARNING, "<b>Step - </b> Switch to another window &nbsp;&nbsp;&nbsp;&nbsp; <b>Expected - </b> Script focus should switched to another window &nbsp;&nbsp;&nbsp;&nbsp; <b>Actual - </b> <mark>Number of windows should be more than 1 to switch, please pass expectedNumberOfWindows more than 1</mark>" + HealthlinkSelenium.extentLogger.addScreenCapture(screenshotManager.getFullScreenshot()));
-            }           
+            }
             throw new RuntimeException("Step:- Switch to another window   Failure:- Number of windows should be more than 1 to switch, please pass expectedNumberOfWindows more than 1");
         }
     }
