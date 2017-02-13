@@ -48,12 +48,12 @@ public class HealthlinkSelenium {
 
     private final FrameHandler frameHandler = new FrameHandler();
     private final KeyboardActionHandler keyboardActionHandler = new KeyboardActionHandler();
-    private final MouseActionHandler mouseActionHandler = new MouseActionHandler(extentLogger);    
-    private final PageTitleHandler pageTitleHandler = new PageTitleHandler(extentLogger);
+    private final MouseActionHandler mouseActionHandler = new MouseActionHandler();
+    private final PageTitleHandler pageTitleHandler = new PageTitleHandler();
     private final ScrollHandler scrollHandler = new ScrollHandler();
-    private final TextboxHandler textboxHandler = new TextboxHandler(extentLogger);
-    private final TextHandler textHandler = new TextHandler(extentLogger);
-    private final UrlHandler urlHandler = new UrlHandler();
+    private final TextboxHandler textboxHandler = new TextboxHandler();
+
+
     private final WaitHandler waitHandler = new WaitHandler();
     private final WindowHandler windowHandler = new WindowHandler();
     
@@ -106,13 +106,7 @@ public class HealthlinkSelenium {
         return textboxHandler;
     }
     
-    public TextHandler textHandler() {
-        return textHandler;
-    }
-    
-    public UrlHandler urlHandler() {
-        return urlHandler;
-    }
+
     
     public WaitHandler waitHandler() {
         return waitHandler;

@@ -11,7 +11,20 @@
  */
 package net.healthlink.qa.selenium.componentHandlers;
 
-import com.relevantcodes.extentreports.LogStatus;
+import com.google.common.base.Function;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.FluentWait;
+import org.openqa.selenium.support.ui.Wait;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.util.NoSuchElementException;
+import java.util.concurrent.TimeUnit;
+
+
+import static net.healthlink.qa.selenium.componentHandlers.HealthlinkSelenium.driver;
 
 /**
  * This class contains method related to wait
@@ -19,27 +32,34 @@ import com.relevantcodes.extentreports.LogStatus;
  * @author jaspal
  */
 public class WaitHandler {
-    
-private ScreenshotManager screenshotManager = new ScreenshotManager();
-    
-    /**
-     * Wait (stop execution) as per provided time.
-     * 
-     * @param waitTimeInMilliseconds Time for wait in milliseconds.
-     */
-    public void wait(int waitTimeInMilliseconds) {
-        try {
+
+
+
+
+    public void wait(int waitTimeInMilliseconds) throws InterruptedException {
+
             Thread.sleep(waitTimeInMilliseconds);
-            if(HealthlinkSelenium.extentReport != null) {
-                HealthlinkSelenium.extentLogger.log(LogStatus.INFO, "<b>Step - </b> Wait ("+waitTimeInMilliseconds+" Milliseconds) &nbsp;&nbsp;&nbsp;&nbsp; <b>Expected - </b> Script should wait as per given time &nbsp;&nbsp;&nbsp;&nbsp; <b>Actual - </b> Script stoped execution as per given time");
-            }
-        }
-        catch (Throwable throwable ) {
-            if(HealthlinkSelenium.extentReport != null) {
-                HealthlinkSelenium.extentLogger.log(LogStatus.ERROR, "<b>Step - </b> Wait ("+waitTimeInMilliseconds+" Milliseconds) &nbsp;&nbsp;&nbsp;&nbsp; <b>Expected - </b> Script should wait as per given time &nbsp;&nbsp;&nbsp;&nbsp; <b>Actual - </b> <mark>Unable to implement wait</mark> " + HealthlinkSelenium.extentLogger.addScreenCapture(screenshotManager.getFullScreenshot()) + throwable.getMessage());
-            }
-            throw new RuntimeException("Step:- Wait ("+waitTimeInMilliseconds+" Milliseconds)   Failure:- Unable to implement wait, Exception occured: " + throwable.getMessage());
-        }
     }
+
+public WebElement waitForElement(final By locator){
+
+
+    Wait<WebDriver> wait = new FluentWait<WebDriver>(HealthlinkSelenium.driver)
+            .withTimeout(20, TimeUnit.SECONDS)
+            .pollingEvery(5, TimeUnit.SECONDS)
+            .ignoring(NoSuchElementException.class);
+
+    WebElement element;
+    element = wait.until(new Function<WebDriver, WebElement>() {
+        public WebElement apply(WebDriver driver) {
+            return driver.findElement(locator);
+        }
+    });
+    return element;
+}
+
+
+
+
 
 }

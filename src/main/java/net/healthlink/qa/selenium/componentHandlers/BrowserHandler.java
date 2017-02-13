@@ -30,19 +30,9 @@ public class BrowserHandler {
     
 private int pageLoadTimeout = 60;
     
-    private ScreenshotManager screenshotManager = new ScreenshotManager();
-    
-    /**
-     * Launch browser.
-     * 
-     * Make sure, before calling this method the driver of a particular browser should be available within the project under 'browser driver' folder.
-     * 
-     * @param browserName Name of the browser which needs to be launched. Options include: firefox, chrome, ie, edge and safari.
-     */
+
     public void launchBrowser(String browserName) {
         //todo use selenium-driver by Giles
-
-
 
     }
 
@@ -88,6 +78,29 @@ private int pageLoadTimeout = 60;
 
             throw new RuntimeException("Step:- Maximize browser window   Failure:- Unable to maximize browser window, Exception occured: " + throwable.getMessage());
         }
+    }
+
+
+//other
+
+    public static void goBack()
+    {
+        HealthlinkSelenium.driver.navigate().back();
+    }
+
+    public static void forward()
+    {
+        HealthlinkSelenium.driver.navigate().forward();
+    }
+
+    public static void refreshPage()
+    {
+       HealthlinkSelenium.driver.navigate().refresh();
+    }
+
+
+    public String getUrl(){
+        return HealthlinkSelenium.driver.getCurrentUrl();
     }
 
 }
