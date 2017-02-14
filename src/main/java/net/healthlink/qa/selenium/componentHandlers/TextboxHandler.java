@@ -33,7 +33,7 @@ public class TextboxHandler {
 
     private ElementHandler elementHandler = new ElementHandler();
 
-    public void fillValue(String elementName, By elementLocator, String value) {
+    public void fillValue(By elementLocator, String value) {
         WebDriverWait webDriverWait;
         WebElement webElement = null;
 
@@ -51,11 +51,11 @@ public class TextboxHandler {
 
             } catch (Throwable throwable) {
 
-                throw new RuntimeException("Step:- Fill value (" + value + ") in (" + elementName + ")   Failure:- Unable to fill value, Exception occured: " + throwable.getMessage());
+               // throw new RuntimeException("Step:- Fill value (" + value + ") in (" + elementName + ")   Failure:- Unable to fill value, Exception occured: " + throwable.getMessage());
             }
         } else {
 
-            throw new RuntimeException("Step:- Fill value (" + value + ") in (" + elementName + ")   Failure:- Unable to find element with locator: " + elementLocator);
+           // throw new RuntimeException("Step:- Fill value (" + value + ") in (" + elementName + ")   Failure:- Unable to find element with locator: " + elementLocator);
         }
 
     }

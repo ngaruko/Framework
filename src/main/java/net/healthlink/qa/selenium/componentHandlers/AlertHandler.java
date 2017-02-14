@@ -11,7 +11,9 @@
  */
 package net.healthlink.qa.selenium.componentHandlers;
 
+import net.healthlink.qa.selenium.utils.Constants;
 import org.openqa.selenium.Alert;
+import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -25,8 +27,7 @@ import com.relevantcodes.extentreports.LogStatus;
 public class AlertHandler {
     
     private int webDriverWait_alertIsPresent = 5;
-    
-    private ScreenshotManager screenshotManager = new ScreenshotManager();
+
 
     private Alert alert;
     
@@ -34,8 +35,7 @@ public class AlertHandler {
    public String getAlertText(){
 
        try {
-           WebDriverWait webDriverWait = new WebDriverWait(HealthlinkSelenium.driver, webDriverWait_alertIsPresent);
-           webDriverWait.until(ExpectedConditions.alertIsPresent());
+         WaitHandler.waitUntil(ExpectedConditions.alertIsPresent(), Constants.WAIT_ALERT_PRESENT);
        }
        catch (Throwable throwable ) {
            // After wait, go forward if alert is not present
@@ -50,6 +50,8 @@ public class AlertHandler {
            throw new RuntimeException("Step:- Verify alert text and accept it   Failure:- Unable to get text from alert, Exception occured: " + throwable.getMessage());
        }
    }
+
+
 
     public boolean isTextEqualTo(String expectedText) {
 

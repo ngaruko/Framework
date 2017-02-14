@@ -16,6 +16,7 @@ import com.google.common.base.Function;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -86,7 +87,7 @@ public class WaitHandler {
     }
 
 
-    private WebDriverWait getWebDriverWait(long timeout) throws InterruptedException {
+    private static WebDriverWait getWebDriverWait(long timeout) throws InterruptedException {
         wait(ELEMENT_LOAD_TIMEOUT);
         Wait<WebDriver> wait = new FluentWait<>(driver)
                 .withTimeout(timeout, TimeUnit.SECONDS)
@@ -96,5 +97,17 @@ public class WaitHandler {
         return (WebDriverWait) wait;
     }
 
+
+    //wait for condition
+    public static <T> void waitUntil(ExpectedCondition<T> expectedCondition, long timeout) {
+        WebDriverWait webDriverWait = null;
+        try {
+            webDriverWait = getWebDriverWait(timeout);
+            webDriverWait.until(expectedCondition);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+    }
 
 }

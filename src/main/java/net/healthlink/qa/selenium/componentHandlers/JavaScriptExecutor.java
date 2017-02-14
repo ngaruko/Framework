@@ -21,10 +21,15 @@ import org.openqa.selenium.WebElement;
 public class JavaScriptExecutor {
 
 
-    public static Object ExecuteScript(String script)
+
+    private JavaScriptExecutor() {
+
+    }
+
+    private static Object ExecuteScript(String script)
     {
-        JavaScriptExecutor executor = ((JavaScriptExecutor)HealthlinkSelenium.driver);
-        return executor.ExecuteScript(script);
+
+        return ((JavaScriptExecutor) HealthlinkSelenium.driver).ExecuteScript(script);
     }
     public static void ScrollToAndClick(WebElement element) throws InterruptedException {
         ExecuteScript("window.scrollTo(0," + element.getLocation().getY() + ")");
