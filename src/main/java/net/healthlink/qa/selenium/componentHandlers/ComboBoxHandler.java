@@ -25,28 +25,28 @@ import java.util.stream.Stream;
  */
 public class ComboBoxHandler {
 
-    private static Select select;
-    private static ElementHandler elementHandler=new ElementHandler();
+    private  Select select;
+    private  ElementHandler elementHandler=new ElementHandler();
 
-    public static void SelectElement(By locator, int index)
+    public  void SelectElement(By locator, int index)
     {
         select = new Select(elementHandler.getElement(locator));
         select.selectByIndex(index);
     }
 
-    public static void SelectElement(By locator, String visibletext)
+    public  void SelectElement(By locator, String visibleText)
     {
         select = new Select(elementHandler.getElement(locator));
-        select.selectByVisibleText(visibletext);
+        select.selectByVisibleText(visibleText);
     }
 
-    public static void SelectElementByValue(By locator, String valueTexts)
+    public  void SelectElementByValue(By locator, String valueTexts)
     {
         select = new Select(elementHandler.getElement(locator));
         select.selectByValue(valueTexts);
     }
 
-    public static List<String> GetAllItem(By locator)
+    public  List<String> GetAllItem(By locator)
     {
         ArrayList<String> results = new ArrayList<>();
         select = new Select(elementHandler.getElement(locator));
@@ -56,7 +56,7 @@ public class ComboBoxHandler {
 
     }
 
-    public static void SelectElement(WebElement element, String visibleText)
+    public  void SelectElement(WebElement element, String visibleText)
     {
         select = new Select(element);
         select.selectByValue(visibleText);

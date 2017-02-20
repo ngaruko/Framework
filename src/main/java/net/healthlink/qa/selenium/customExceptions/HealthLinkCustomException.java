@@ -15,7 +15,7 @@ package net.healthlink.qa.selenium.customExceptions;
  *
  * @author beden
  */
-public class HealthLinkCustomException extends Exception {
+public class HealthLinkCustomException extends RuntimeException {
     public HealthLinkCustomException(String message) {
         super(message);
     }

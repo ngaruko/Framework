@@ -43,7 +43,7 @@ public class WaitHandler {
     }
 
 
-    public Function<WebDriver, Boolean> waitForWebElementFunc(final By locator) {
+    private Function<WebDriver, Boolean> waitForWebElementFunc(final By locator) {
 
         return ((x) -> {
             if (x.findElements(locator).size() == 1)
@@ -56,7 +56,7 @@ public class WaitHandler {
     }
 
 
-    public Function<WebDriver, WebElement> waitForWebElementInPageFunc(final By locator) {
+    private Function<WebDriver, WebElement> waitForWebElementInPageFunc(final By locator) {
 
         return ((x) -> {
             if (x.findElements(locator).size() == 1)
@@ -87,7 +87,7 @@ public class WaitHandler {
     }
 
 
-    private static WebDriverWait getWebDriverWait(long timeout) throws InterruptedException {
+     WebDriverWait getWebDriverWait(long timeout) throws InterruptedException {
         wait(ELEMENT_LOAD_TIMEOUT);
         Wait<WebDriver> wait = new FluentWait<>(driver)
                 .withTimeout(timeout, TimeUnit.SECONDS)
@@ -99,7 +99,7 @@ public class WaitHandler {
 
 
     //wait for condition
-    public static <T> void waitUntil(ExpectedCondition<T> expectedCondition, long timeout) {
+     <T> void waitUntil(ExpectedCondition<T> expectedCondition, long timeout) {
         WebDriverWait webDriverWait = null;
 
                 try {

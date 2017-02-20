@@ -12,7 +12,11 @@
 package net.healthlink.qa.selenium.componentHandlers;
 
 import java.util.List;
+import java.util.logging.Logger;
 
+import net.healthlink.qa.selenium.customExceptions.HealthLinkCustomException;
+import net.healthlink.qa.selenium.utils.Constants;
+import net.healthlink.qa.selenium.utils.Logger4J;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -27,17 +31,8 @@ public class DropdownHandler {
     private ElementHandler elementHandler = new ElementHandler();
 
 
-
     private int webDriverWait_visibilityOfElementLocated = 5;
     private By elementLocator;
-    //private boolean elementExists=elementHandler.isElementDisplayed(elementLocator);
-
-
-    public DropdownHandler() {
-
-    }
-    
-
 
 
     public void selectOption(By elementLocator, String visibleText) {
@@ -47,30 +42,22 @@ public class DropdownHandler {
 
         if (elementHandler.isElementPresent(elementLocator)) {
             try {
-                webDriverWait = new WebDriverWait(HealthlinkSelenium.driver, webDriverWait_visibilityOfElementLocated);
-                webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(elementLocator));
-            }
-            catch (Throwable throwable ) {
-                // After wait, go forward if element is not visible
-            }
-            try {
+                new WaitHandler().waitUntil(ExpectedConditions.visibilityOfElementLocated(elementLocator), Constants.WAIT_VISIBILITY_OF_ELEMENT);
                 webElement = elementHandler.getElement(elementLocator);
                 select = new Select(webElement);
                 select.selectByVisibleText(visibleText);
+            } catch (Exception e) {
+                Logger4J.logError(e);
 
-                
-            } catch (Throwable throwable ) {
-
-                throw new RuntimeException("Step:- Select option ("+visibleText+") Failure:- Unable to select option, Exception occured: " + throwable.getMessage());
+                throw new HealthLinkCustomException("Step:- Select option (" + visibleText + ") Failure:- Unable to select option, Exception occured: " + e.getMessage());
             }
-        }
-        else {
+        } else {
 
-            throw new RuntimeException("Step:- Select option ("+visibleText+"). Failure:- Unable to find element with locator: "+elementLocator);
+            throw new HealthLinkCustomException("Step:- Select option (" + visibleText + "). Failure:- Unable to find element with locator: " + elementLocator);
         }
 
     }
-    
+
 
     public void selectOption(String elementName, By elementLocator, int index) {
         WebDriverWait webDriverWait;
@@ -81,8 +68,7 @@ public class DropdownHandler {
             try {
                 webDriverWait = new WebDriverWait(HealthlinkSelenium.driver, webDriverWait_visibilityOfElementLocated);
                 webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(elementLocator));
-            }
-            catch (Throwable throwable ) {
+            } catch (Throwable throwable) {
                 // After wait, go forward if element is not visible
             }
             try {
@@ -90,18 +76,16 @@ public class DropdownHandler {
                 select = new Select(webElement);
                 select.selectByIndex(index);
 
-            } catch (Throwable throwable ) {
+            } catch (Throwable throwable) {
 
-                throw new RuntimeException("Step:- Select option by index number ("+index+") from ("+elementName+")   Failure:- Unable to select option, Exception occured: " + throwable.getMessage());
+                throw new RuntimeException("Step:- Select option by index number (" + index + ") from (" + elementName + ")   Failure:- Unable to select option, Exception occured: " + throwable.getMessage());
             }
-        }
-        else  {
+        } else {
 
-            throw new RuntimeException("Step:- Select option by index number ("+index+") from ("+elementName+")   Failure:- Unable to find element with locator: "+elementLocator);
+            throw new RuntimeException("Step:- Select option by index number (" + index + ") from (" + elementName + ")   Failure:- Unable to find element with locator: " + elementLocator);
         }
 
     }
-    
 
 
     public void deselectOption(String elementName, By elementLocator, String visibleText) {
@@ -113,8 +97,7 @@ public class DropdownHandler {
             try {
                 webDriverWait = new WebDriverWait(HealthlinkSelenium.driver, webDriverWait_visibilityOfElementLocated);
                 webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(elementLocator));
-            }
-            catch (Throwable throwable ) {
+            } catch (Throwable throwable) {
                 // After wait, go forward if element is not visible
             }
             try {
@@ -122,18 +105,17 @@ public class DropdownHandler {
                 select = new Select(webElement);
                 select.deselectByVisibleText(visibleText);
 
-            } catch (Throwable throwable ) {
+            } catch (Throwable throwable) {
 
-                throw new RuntimeException("Step:- Deselect option ("+visibleText+") from ("+elementName+")   Failure:- Unable to deselect option, Exception occured: " + throwable.getMessage());
+                throw new RuntimeException("Step:- Deselect option (" + visibleText + ") from (" + elementName + ")   Failure:- Unable to deselect option, Exception occured: " + throwable.getMessage());
             }
-        }
-        else  {
+        } else {
 
-            throw new RuntimeException("Step:- Deselect option ("+visibleText+") from ("+elementName+")   Failure:- Unable to find element with locator: "+elementLocator);
+            throw new RuntimeException("Step:- Deselect option (" + visibleText + ") from (" + elementName + ")   Failure:- Unable to find element with locator: " + elementLocator);
         }
 
     }
-    
+
 
     public void deselectAllOptions(String elementName, By elementLocator) {
         WebDriverWait webDriverWait;
@@ -144,8 +126,7 @@ public class DropdownHandler {
             try {
                 webDriverWait = new WebDriverWait(HealthlinkSelenium.driver, webDriverWait_visibilityOfElementLocated);
                 webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(elementLocator));
-            }
-            catch (Throwable throwable ) {
+            } catch (Throwable throwable) {
                 // After wait, go forward if element is not visible
             }
             try {
@@ -153,18 +134,17 @@ public class DropdownHandler {
                 select = new Select(webElement);
                 select.deselectAll();
 
-            } catch (Throwable throwable ) {
+            } catch (Throwable throwable) {
 
-                throw new RuntimeException("Step:- Deselect all options from ("+elementName+")   Failure:- Unable to deselect options, Exception occured: " + throwable.getMessage());
+                throw new RuntimeException("Step:- Deselect all options from (" + elementName + ")   Failure:- Unable to deselect options, Exception occured: " + throwable.getMessage());
             }
-        }
-        else  {
+        } else {
 
-            throw new RuntimeException("Step:- Deselect all options from ("+elementName+")   Failure:- Unable to find element with locator: "+elementLocator);
+            throw new RuntimeException("Step:- Deselect all options from (" + elementName + ")   Failure:- Unable to find element with locator: " + elementLocator);
         }
 
     }
-    
+
 
     public void verifySelectedOptionEquals(String elementName, By elementLocator, String expectedText) {
         WebDriverWait webDriverWait;
@@ -178,8 +158,7 @@ public class DropdownHandler {
             try {
                 webDriverWait = new WebDriverWait(HealthlinkSelenium.driver, webDriverWait_visibilityOfElementLocated);
                 webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(elementLocator));
-            }
-            catch (Throwable throwable ) {
+            } catch (Throwable throwable) {
                 // After wait, go forward if element is not visible
             }
             try {
@@ -188,24 +167,21 @@ public class DropdownHandler {
                 selectedOptionPath = select.getFirstSelectedOption();
                 actualSelectedOption = selectedOptionPath.getText();
                 gotSelectedOption = true;
+            } catch (Throwable throwable) {
+
+                throw new RuntimeException("Step:- Verify selected option in (" + elementName + ")   Failure:- Unable to get selected option from dropdown, Exception occured: " + throwable.getMessage());
             }
-            catch (Throwable throwable ) {
+            if (gotSelectedOption) {
+                if (actualSelectedOption.trim().equals(expectedText)) {
 
-                throw new RuntimeException("Step:- Verify selected option in ("+elementName+")   Failure:- Unable to get selected option from dropdown, Exception occured: " + throwable.getMessage());
-            }
-            if(gotSelectedOption) {
-                if(actualSelectedOption.trim().equals(expectedText)) {
+                } else {
 
-                }
-                else {
-
-                    throw new RuntimeException("Step:- Verify selected option in ("+elementName+")   Failure:- Actual selected option is: "+actualSelectedOption+", which is not equal to expected option: "+expectedText);
+                    throw new RuntimeException("Step:- Verify selected option in (" + elementName + ")   Failure:- Actual selected option is: " + actualSelectedOption + ", which is not equal to expected option: " + expectedText);
                 }
             }
-        }
-        else  {
+        } else {
 
-            throw new RuntimeException("Step:- Verify selected option in ("+elementName+")   Failure:- Unable to find element with locator: "+elementLocator);
+            throw new RuntimeException("Step:- Verify selected option in (" + elementName + ")   Failure:- Unable to find element with locator: " + elementLocator);
         }
 
     }
@@ -222,8 +198,7 @@ public class DropdownHandler {
             try {
                 webDriverWait = new WebDriverWait(HealthlinkSelenium.driver, webDriverWait_visibilityOfElementLocated);
                 webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(elementLocator));
-            }
-            catch (Throwable throwable ) {
+            } catch (Throwable throwable) {
                 // After wait, go forward if element is not visible
             }
             try {
@@ -232,29 +207,24 @@ public class DropdownHandler {
                 selectedOptionPath = select.getFirstSelectedOption();
                 actualSelectedOption = selectedOptionPath.getText();
                 gotSelectedOption = true;
+            } catch (Throwable throwable) {
+
+                throw new RuntimeException("Step:- Verify selected option in (" + elementName + ")   Failure:- Unable to get selected option from dropdown, Exception occured: " + throwable.getMessage());
             }
-            catch (Throwable throwable ) {
+            if (gotSelectedOption) {
+                if (actualSelectedOption.trim().contains(expectedText)) {
 
-                throw new RuntimeException("Step:- Verify selected option in ("+elementName+")   Failure:- Unable to get selected option from dropdown, Exception occured: " + throwable.getMessage());
+                } else {
+
+                    throw new RuntimeException("Step:- Verify selected option in (" + elementName + ")   Failure:- Actual selected option is: " + actualSelectedOption + ", which does not contains expected option: " + expectedText);
+                }
             }
-            if(gotSelectedOption) {
-                if(actualSelectedOption.trim().contains(expectedText)) {
+        } else {
 
-                }
-                else {
-
-                    throw new RuntimeException("Step:- Verify selected option in ("+elementName+")   Failure:- Actual selected option is: "+actualSelectedOption+", which does not contains expected option: "+expectedText);
-                }
-            }           
-        }
-        else  {
-
-            throw new RuntimeException("Step:- Verify selected option in ("+elementName+")   Failure:- Unable to find element with locator: "+elementLocator);
+            throw new RuntimeException("Step:- Verify selected option in (" + elementName + ")   Failure:- Unable to find element with locator: " + elementLocator);
         }
 
     }
-
-
 
 
     public void verifySelectedOptionWithRegEx(String elementName, By elementLocator, String expectedRegEx) {
@@ -264,13 +234,12 @@ public class DropdownHandler {
         WebElement selectedOptionPath;
         String actualSelectedOption;
         boolean gotSelectedOption;
-       // int elementCount = handleElements.getElementCount(elementLocator);
+        // int elementCount = handleElements.getElementCount(elementLocator);
         if (elementHandler.isElementPresent(elementLocator)) {
             try {
                 webDriverWait = new WebDriverWait(HealthlinkSelenium.driver, webDriverWait_visibilityOfElementLocated);
                 webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(elementLocator));
-            }
-            catch (Throwable throwable ) {
+            } catch (Throwable throwable) {
                 // After wait, go forward if element is not visible
             }
             try {
@@ -279,28 +248,25 @@ public class DropdownHandler {
                 selectedOptionPath = select.getFirstSelectedOption();
                 actualSelectedOption = selectedOptionPath.getText();
                 gotSelectedOption = true;
+            } catch (Throwable throwable) {
+
+                throw new RuntimeException("Step:- Verify selected option in (" + elementName + ")   Failure:- Unable to get option from dropdown, Exception occured: " + throwable.getMessage());
             }
-            catch (Throwable throwable ) {
+            if (gotSelectedOption) {
+                if (actualSelectedOption.trim().matches(expectedRegEx)) {
 
-                throw new RuntimeException("Step:- Verify selected option in ("+elementName+")   Failure:- Unable to get option from dropdown, Exception occured: " + throwable.getMessage());
+                } else {
+
+                    throw new RuntimeException("Actual selected option is: " + actualSelectedOption + ", which does not match with expected regular expression: " + expectedRegEx);
+                }
             }
-            if(gotSelectedOption) {
-                if(actualSelectedOption.trim().matches(expectedRegEx)) {
+        } else {
 
-                }
-                else {
-
-                    throw new RuntimeException("Actual selected option is: "+actualSelectedOption+", which does not match with expected regular expression: "+expectedRegEx);
-                }
-            }           
-        }
-        else  {
-
-            throw new RuntimeException("Step:- Verify selected option in ("+elementName+")   Failure:- Unable to find element with locator: "+elementLocator);
+            throw new RuntimeException("Step:- Verify selected option in (" + elementName + ")   Failure:- Unable to find element with locator: " + elementLocator);
         }
 
     }
-    
+
 
     public void verifyOptions(String elementName, By elementLocator, int expectedNumberOfOptions, String[] expectedOptions) {
         WebElement webElement = null;
@@ -316,37 +282,33 @@ public class DropdownHandler {
                 select = new Select(webElement);
                 dropdownOptions = select.getOptions();
                 gotOptions = true;
-            }
-            catch (Throwable throwable ) {
+            } catch (Throwable throwable) {
 
-                throw new RuntimeException("Step:- Verify options in ("+elementName+")   Failure:- Unable to get options from dropdown, Exception occured: " + throwable.getMessage());
+                throw new RuntimeException("Step:- Verify options in (" + elementName + ")   Failure:- Unable to get options from dropdown, Exception occured: " + throwable.getMessage());
             }
             if (gotOptions) {
                 actualNumberOfOptions = dropdownOptions.size();
                 if (actualNumberOfOptions == expectedNumberOfOptions) {
 
                     verifiedOptionsCount = true;
-                }
-                else {
-                      throw new RuntimeException("Step:- Verify number of options in ("+elementName+")   Failure:- Actual number of options are: "+actualNumberOfOptions+", which are not equal to expected number of options: "+expectedNumberOfOptions);
+                } else {
+                    throw new RuntimeException("Step:- Verify number of options in (" + elementName + ")   Failure:- Actual number of options are: " + actualNumberOfOptions + ", which are not equal to expected number of options: " + expectedNumberOfOptions);
 
                 }
             }
             if (verifiedOptionsCount) {
-                for(int i=0; i<expectedOptions.length; i++) {
-                    if(expectedOptions[i].equals(dropdownOptions.get(i).getText())) {
+                for (int i = 0; i < expectedOptions.length; i++) {
+                    if (expectedOptions[i].equals(dropdownOptions.get(i).getText())) {
 
-                    }
-                    else {
+                    } else {
 
-                        throw new RuntimeException("Step:- Verify options in ("+elementName+")   Failure:- Option: '"+dropdownOptions.get(i).getText()+"' is available in dropdown, instead of: '"+expectedOptions[i]+"'");
+                        throw new RuntimeException("Step:- Verify options in (" + elementName + ")   Failure:- Option: '" + dropdownOptions.get(i).getText() + "' is available in dropdown, instead of: '" + expectedOptions[i] + "'");
                     }
                 }
             }
-        }
-        else  {
+        } else {
 
-            throw new RuntimeException("Step:- Verify options in ("+elementName+")   Failure:- Unable to find element with locator: "+elementLocator);
+            throw new RuntimeException("Step:- Verify options in (" + elementName + ")   Failure:- Unable to find element with locator: " + elementLocator);
         }
 
     }

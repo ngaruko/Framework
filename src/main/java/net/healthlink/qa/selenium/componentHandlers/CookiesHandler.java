@@ -11,28 +11,27 @@
  */
 package net.healthlink.qa.selenium.componentHandlers;
 
+import net.healthlink.qa.selenium.customExceptions.HealthLinkCustomException;
+
 public class CookiesHandler {
 
     public void deleteAllCookies() {
         try {
             HealthlinkSelenium.driver.manage().deleteAllCookies();
 
-        }
-        catch (Throwable throwable ) {
+        } catch (Exception e) {
 
-            throw new RuntimeException("Step:- Delete all cookies   Failure:- Unable to delete cookies, Exception occured: " + throwable.getMessage());
+            throw new HealthLinkCustomException("Step:- Delete all cookies   Failure:- Unable to delete cookies, Exception occured: " + e);
         }
     }
-    
+
 
     public void deleteCookie(String cookieName) {
         try {
             HealthlinkSelenium.driver.manage().deleteCookieNamed(cookieName);
+        } catch (Exception e) {
 
-        }
-        catch (Throwable throwable ) {
-
-            throw new RuntimeException("Step:- Delete cookie   Failure:- Unable to delete cookie named: "+cookieName+", Exception occured: " + throwable.getMessage());
+            throw new HealthLinkCustomException("Step:- Delete cookie   Failure:- Unable to delete cookie named: " + cookieName + ", Exception occured: " + e);
         }
     }
 
