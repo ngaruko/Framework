@@ -27,7 +27,7 @@ public class ElementHandler {
 
 
    // private final ExtentTest extentLogger;
-    //private final Reporter reporter ;
+    //private final ExtentReporter extentReporter ;
 
     //todo magic numbers ===constants??
     private int webDriverWait_numberOfElementsToBe0 = 15;

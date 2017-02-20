@@ -21,22 +21,23 @@ import org.openqa.selenium.WebElement;
  */
 public class ButtonHandler {
 
-    private static WebElement element;
-    private static ElementHandler elementHandler=new ElementHandler();
+    private  WebElement element;
+    private  ElementHandler elementHandler=new ElementHandler();
 
-    public static void clickButton(By locator)
+
+    public  void clickButton(By locator)
     {
         element = elementHandler.getElement(locator);
         element.click();
     }
 
-    public static boolean ssButtonEnabled(By locator)
+    public  boolean isButtonEnabled(By locator)
     {
         element = elementHandler.getElement(locator);
         return element.isEnabled();
     }
 
-    public static String getButtonText(By locator)
+    public  String getButtonText(By locator)
     {
         element = elementHandler.getElement(locator);
         if (element.getAttribute("value") == null)

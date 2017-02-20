@@ -6,4 +6,5 @@ package net.healthlink.qa.selenium.utils;
 public class Constants {
     public static final int ELEMENT_LOAD_TIMEOUT =1000;
     public static final long WAIT_ALERT_PRESENT =5000 ;
+    //todo other constants go here: Avoid magic strings and numbers
 }

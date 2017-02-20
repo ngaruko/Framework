@@ -11,7 +11,7 @@
  */
 package net.healthlink.qa.selenium.componentHandlers;
 
-import net.healthlink.qa.selenium.utils.Reporter;
+import net.healthlink.qa.selenium.utils.ExtentReporter;
 import org.openqa.selenium.WebDriver;
 
 import com.relevantcodes.extentreports.ExtentReports;
@@ -29,7 +29,7 @@ public class HealthlinkSelenium {
    public static ExtentReports extentReport;
 
    //
-    public static Reporter reporter;
+    public static ExtentReporter extentReporter;
     public static ExtentTest extentLogger;
     public static WebDriver driver;
     
@@ -44,7 +44,7 @@ public class HealthlinkSelenium {
    private final ElementHandler elementHandler = new ElementHandler();
 
     //like so
-    //private final ElementHandler elementHandler = new ElementHandler(reporter);
+    //private final ElementHandler elementHandler = new ElementHandler(extentReporter);
 
     private final FrameHandler frameHandler = new FrameHandler();
     private final KeyboardActionHandler keyboardActionHandler = new KeyboardActionHandler();

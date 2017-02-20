@@ -11,15 +11,11 @@
  */
 package net.healthlink.qa.selenium.componentHandlers;
 
-import net.healthlink.qa.selenium.utils.Reporter;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
-import com.relevantcodes.extentreports.ExtentTest;
-import com.relevantcodes.extentreports.LogStatus;
 
 /**
  * This class contains all methods related to mouse action

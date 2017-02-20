@@ -101,7 +101,8 @@ public class WaitHandler {
     //wait for condition
     public static <T> void waitUntil(ExpectedCondition<T> expectedCondition, long timeout) {
         WebDriverWait webDriverWait = null;
-        try {
+
+                try {
             webDriverWait = getWebDriverWait(timeout);
             webDriverWait.until(expectedCondition);
         } catch (InterruptedException e) {
