@@ -14,8 +14,8 @@ import java.net.URL;
  */
 public class ExtentReportService implements ReportService {
 
-    public static ExtentReports extentReport;
-    public static ExtentTest extentTest;
+    private  ExtentReports extentReport;
+    private  ExtentTest extentTest;
     private ScreenshotManager screenshotManager;
 
     @Override
@@ -44,15 +44,14 @@ public class ExtentReportService implements ReportService {
     }
 
     @Override
-    public void configureResultReport(String scenarioName, HealthlinkSelenium healthlinkSelenium) {
+    public  void configureResultReport(String scenarioName, HealthlinkSelenium healthlinkSelenium) {
         if (extentReport == null) {
             extentReport = new ExtentReports("detailResultReport.html");
             URL url = healthlinkSelenium.getClass().getResource("extent-config.xml");
             extentReport.loadConfig(new File(url.getPath()));
         }
-        if (extentReport != null) {
-            extentTest = extentReport.startTest(scenarioName);
-        }
+        else
+         extentTest = extentReport.startTest(scenarioName);
     }
 
     @Override

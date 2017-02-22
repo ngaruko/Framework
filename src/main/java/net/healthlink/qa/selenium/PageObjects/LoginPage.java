@@ -45,11 +45,16 @@ public class LoginPage {
 
     public  void login(String username, String password) {
 
-        //can use element handler function to handle exceptions and timeouts
+     //new TextboxHandler().fillValue(By  );   //can use element handler function to handle exceptions and timeouts
 usernameTextBox.sendKeys(username);
 passwordTextBox.sendKeys(password);
 loginButton.click();
         //new TextboxHandler().fillValue(usernameTextBox,username);
     }
 
+
+
+    public void goNext(){
+
+    }
 }

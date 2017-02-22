@@ -18,17 +18,22 @@ public class AppTest
     public void testApp() {
         //todo unit tests if applicable
        // given
-      //  LoginPage loginPage = new LoginPage();
-      //  loginPage.goTo();
+
+       LoginPage loginPage = new LoginPage();
+
+        loginPage.goTo();
+
         //when
-     //   loginPage.login("bede", "pass");
+        loginPage.login("bede", "pass");
 
         //assert belong in tests
         // then
-      //  Assert.assertTrue(DasboardPage.isDisplayed());
+        Assert.assertTrue(DasboardPage.isDisplayed());
         //
 
-
+//given
+        RegistrationPage.LegalName.sendKeys("mane");
+        
 
 
     }
@@ -41,8 +46,6 @@ public class AppTest
         Reporter reporter=injector.getInstance(Reporter.class);
 
         reporter.reportSuccess("Hey. We made it");
-
-
 
 
     }

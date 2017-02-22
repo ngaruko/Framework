@@ -32,7 +32,7 @@ import static net.healthlink.qa.selenium.utils.Constants.ELEMENT_LOAD_TIMEOUT;
  *
  * @author Bede
  */
-public class WaitHandler {
+public class WaitHandler implements Runnable {
 
 
     private static final long POLLING_INTERVAL = 5;
@@ -46,10 +46,7 @@ public class WaitHandler {
     private Function<WebDriver, Boolean> waitForWebElementFunc(final By locator) {
 
         return ((x) -> {
-            if (x.findElements(locator).size() == 1)
-                return true;
-            return false;
-
+            return x.findElements(locator).size() == 1;
         });
 
 
@@ -111,4 +108,8 @@ public class WaitHandler {
 
     }
 
+    @Override
+    public void run() {
+
+    }
 }

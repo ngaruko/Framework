@@ -11,7 +11,6 @@
  */
 package net.healthlink.qa.selenium.componentHandlers;
 
-import net.healthlink.qa.selenium.customExceptions.HealthLinkCustomException;
 import net.healthlink.qa.selenium.utils.Constants;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -21,15 +20,16 @@ public class AlertHandler {
 
     private Alert alert;
     private String actualAlertText;
+    private WaitHandler waitHandler=new WaitHandler();
 
-    private String getAlertText() throws HealthLinkCustomException {
+    private String getAlertText()  {
 
-        WaitHandler.waitUntil(ExpectedConditions.alertIsPresent(), Constants.WAIT_ALERT_PRESENT);
+        waitHandler.waitUntil(ExpectedConditions.alertIsPresent(), Constants.WAIT_ALERT_PRESENT);
         alert = HealthlinkSelenium.driver.switchTo().alert();
         return alert.getText();
     }
 
-    public boolean isTextEqualTo(String expectedText) throws HealthLinkCustomException {
+    public boolean isTextEqualTo(String expectedText) {
 
         actualAlertText = getAlertText();
 
@@ -38,26 +38,28 @@ public class AlertHandler {
     }
 
 
-    public void acceptAlert() throws HealthLinkCustomException {
+    public void acceptAlert()  {
 
-        WaitHandler.waitUntil(ExpectedConditions.alertIsPresent(), Constants.WAIT_ALERT_PRESENT);
+        waitHandler.waitUntil(ExpectedConditions.alertIsPresent(), Constants.WAIT_ALERT_PRESENT);
         alert.accept();
     }
 
-    public boolean alertTextContains(String expectedText) throws HealthLinkCustomException {
+
+    public boolean alertTextContains(String expectedText)
+    {
 
         actualAlertText = getAlertText();
 
         return actualAlertText.trim().contains(expectedText.trim());
     }
 
-    public boolean alertTextWithRegEx(String expectedRegEx) throws HealthLinkCustomException {
+    public boolean alertTextWithRegEx(String expectedRegEx)  {
         actualAlertText = getAlertText();
         return actualAlertText.trim().matches(expectedRegEx.trim());
     }
 
-    public void dismissAlert(Alert alert) throws HealthLinkCustomException {
-        WaitHandler.waitUntil(ExpectedConditions.alertIsPresent(), Constants.WAIT_ALERT_PRESENT);
+    public void dismissAlert(Alert alert)  {
+        waitHandler.waitUntil(ExpectedConditions.alertIsPresent(), Constants.WAIT_ALERT_PRESENT);
         alert.dismiss();
     }
 
