@@ -20,7 +20,7 @@ import org.openqa.selenium.WebDriver;
  */
 public class Page6 extends BaseForm{
 
-    private By prefix;
+    private By prefix=By.id("namePrefix1");
     private By firstNameTextBox;
     private By lastNameTextBox;
     private By jobTitleTextBox;

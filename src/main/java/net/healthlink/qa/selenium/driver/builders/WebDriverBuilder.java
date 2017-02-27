@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017 HealthLink Limited.
+ * Copyright (c) 2016 HealthLink Limited.
  *
  * This document is copyright. Except for the purpose of fair reviewing, no part
  * of this publication may be reproduced or transmitted in any form or by any
@@ -8,13 +8,17 @@
  * the publisher. Infringers of copyright render themselves liable for
  * prosecution.
  */
-package net.healthlink.qa.selenium.seleniumdriver.driver;
+
+package net.healthlink.qa.selenium.driver.builders;
+
+import org.openqa.selenium.remote.RemoteWebDriver;
 
 /**
  * The purpose of this...
  *
- * @author beden
+ * @author Giles
  */
-public class DriverType {
+public interface WebDriverBuilder {
 
+    RemoteWebDriver build();
 }
