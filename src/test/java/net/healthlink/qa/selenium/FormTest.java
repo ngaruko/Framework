@@ -11,14 +11,16 @@
 package net.healthlink.qa.selenium;
 
 import io.github.bonigarcia.wdm.ChromeDriverManager;
-import net.healthlink.qa.selenium.PageObjects.serviceApplicationForm.ClinicalSoftware;
-import net.healthlink.qa.selenium.PageObjects.serviceApplicationForm.HealthLinkService;
-import net.healthlink.qa.selenium.PageObjects.serviceApplicationForm.LandingPage;
+import net.healthlink.qa.selenium.PageObjects.serviceApplicationForm.*;
 import net.healthlink.qa.selenium.componentHandlers.HealthlinkSelenium;
 import net.healthlink.qa.selenium.componentHandlers.WaitHandler;
+import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
+
+import static org.assertj.core.api.Assertions.*;
+
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -34,12 +36,12 @@ public class FormTest {
 
     private static WebDriver driver;
 
-    //@BeforeClass
-    public static void initialize() {
-        ChromeDriverManager.getInstance().setup();
-        driver = new ChromeDriver();
-        driver.manage().window().maximize();
+    private static HealthlinkSelenium healthlinkSelenium = new HealthlinkSelenium();
 
+    @BeforeClass
+    public static void initialize() {
+        driver = healthlinkSelenium.getDriver();
+        driver.manage().window().maximize();
     }
 
     @Test
@@ -48,21 +50,16 @@ public class FormTest {
         // given
         LandingPage landingPage = new LandingPage(driver);
 
-       landingPage.goTo();
+        landingPage.goTo();
 
-       new WaitHandler().wait(3000);
+        new WaitHandler().wait(3000);
 
         landingPage.selectRegion("North Island");
-       // landingPage.selectRegion("Alberta");
 
-
+        assertThat(new Page1(driver).isAt(1));
     }
 
 
-    /**
-     * @author The Elite Gentleman
-     *
-     */
     public enum MyType {
         ONE("This is number one"),
         STRING_TWO("TWO");
@@ -88,9 +85,13 @@ public class FormTest {
 
 
     @Test
-    public void testenum(){
+    public void testenum() {
+
+        // System.out.println(new BaseForm(driver).);
         System.out.println(MyType.ONE.text);
 
+
+        initialize();
         printService(ClinicalSoftware.CLOUDAPPOINTMENTS);
 
     }

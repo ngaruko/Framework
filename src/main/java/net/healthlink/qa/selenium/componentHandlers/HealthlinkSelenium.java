@@ -11,6 +11,8 @@
  */
 package net.healthlink.qa.selenium.componentHandlers;
 
+import net.healthlink.qa.selenium.driver.DriverType;
+import net.healthlink.qa.selenium.driver.WebDriverWrapper;
 import net.healthlink.qa.selenium.utils.ExtentReporter;
 import org.openqa.selenium.WebDriver;
 
@@ -31,7 +33,7 @@ public class HealthlinkSelenium {
    //
     public static ExtentReporter extentReporter;
     public static ExtentTest extentLogger;
-    public static WebDriver driver;
+    public static WebDriver driver=new WebDriverWrapper(DriverType.CHROME).getDriver();
     
     private final AlertHandler alertHandler = new AlertHandler();
     private final BrowserHandler browserHandler = new BrowserHandler();

@@ -33,7 +33,7 @@ public class BaseObject {
     public BaseObject(WebDriver driver) {
         super();
         this.driver = driver;
-     //   winHandleBefore = driver.getWindowHandle();
+
     }
 
     public void waitForElementToAppear(By selector) {

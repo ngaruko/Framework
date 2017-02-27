@@ -30,6 +30,10 @@ public class WebDriverWrapper {
         this.driver = driverType.getRemoteDriver();
     }
 
+    public WebDriver getDriver() {
+        return driver;
+    }
+
     public WebElement findElement(By by) {
         return driver.findElement(by);
     }

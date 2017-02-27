@@ -32,6 +32,8 @@ public class BaseForm extends BaseObject {
     private By getHealthLinkLocator;
     private By previousPageButtonLocator;
     private By nextPageButtonLocator;
+    private By pageNumberLocator;
+
     HealthlinkSelenium healthlinkSelenium = new HealthlinkSelenium();
 
     public BaseForm(WebDriver webdriver) {
@@ -44,6 +46,7 @@ public class BaseForm extends BaseObject {
         getHealthLinkLocator = By.linkText("Get HealthLink");
         previousPageButtonLocator = By.cssSelector("input[value='Previous Page']");
         nextPageButtonLocator = By.cssSelector("input[value='Next Page']");
+        pageNumberLocator=By.tagName("h3");
     }
 
     public void goTo() throws InterruptedException {
@@ -62,4 +65,14 @@ public class BaseForm extends BaseObject {
 
     }
 
+    public  boolean isAt(int pageNumber) {
+//todo page number
+
+        String pageNumberHeader;
+        pageNumberHeader = healthlinkSelenium.elementHandler().getElement(pageNumberLocator).getText();
+
+        System.out.println("Page header text: " + pageNumberHeader);
+        String expectedText=String.format("Page {0} of 10", pageNumber);
+        return pageNumberHeader.equals(expectedText);
+    }
 }

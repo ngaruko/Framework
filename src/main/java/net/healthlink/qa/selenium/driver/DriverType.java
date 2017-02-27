@@ -49,6 +49,12 @@ public enum DriverType {
     }
 
     public RemoteWebDriver getRemoteDriver() {
+        //path to chrome driver
+        System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
+
+        //path to gecko driver
+        System.setProperty("webdriver.gecko.driver", "geckodriver.exe");
+
         return builder.build();
     }
 }
