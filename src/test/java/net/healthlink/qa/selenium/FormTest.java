@@ -52,7 +52,7 @@ public class FormTest {
 
         landingPage.goTo();
 
-        new WaitHandler().wait(3000);
+        new WaitHandler().wait(1000);
 
         landingPage.selectRegion("North Island");
 
@@ -60,44 +60,5 @@ public class FormTest {
     }
 
 
-    public enum MyType {
-        ONE("This is number one"),
-        STRING_TWO("TWO");
 
-
-        private final String text;
-
-        /**
-         * @param text
-         */
-        private MyType(final String text) {
-            this.text = text;
-        }
-
-        /* (non-Javadoc)
-         * @see java.lang.Enum#toString()
-         */
-        @Override
-        public String toString() {
-            return text;
-        }
-    }
-
-
-    @Test
-    public void testenum() {
-
-        // System.out.println(new BaseForm(driver).);
-        System.out.println(MyType.ONE.text);
-
-
-        initialize();
-        printService(ClinicalSoftware.CLOUDAPPOINTMENTS);
-
-    }
-
-    private void printService(ClinicalSoftware software) {
-        System.out.println(software.getName());
-    }
-
-}
+   }
