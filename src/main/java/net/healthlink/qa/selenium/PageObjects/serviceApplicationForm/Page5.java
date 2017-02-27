@@ -10,11 +10,20 @@
  */
 package net.healthlink.qa.selenium.PageObjects.serviceApplicationForm;
 
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+
 /**
  * The purpose of this...
  *
  * @author beden
  */
-public class Page5 {
+public class Page5 extends BaseForm{
 
+    private By ediAccountNumberTextBox=By.id("txt_edi");
+
+
+    public Page5(WebDriver webdriver) {
+        super(webdriver);
+    }
 }

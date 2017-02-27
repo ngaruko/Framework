@@ -11,6 +11,8 @@
 package net.healthlink.qa.selenium;
 
 import io.github.bonigarcia.wdm.ChromeDriverManager;
+import net.healthlink.qa.selenium.PageObjects.serviceApplicationForm.ClinicalSoftware;
+import net.healthlink.qa.selenium.PageObjects.serviceApplicationForm.HealthLinkService;
 import net.healthlink.qa.selenium.PageObjects.serviceApplicationForm.LandingPage;
 import net.healthlink.qa.selenium.componentHandlers.HealthlinkSelenium;
 import net.healthlink.qa.selenium.componentHandlers.WaitHandler;
@@ -32,7 +34,7 @@ public class FormTest {
 
     private static WebDriver driver;
 
-    @BeforeClass
+    //@BeforeClass
     public static void initialize() {
         ChromeDriverManager.getInstance().setup();
         driver = new ChromeDriver();
@@ -54,6 +56,47 @@ public class FormTest {
        // landingPage.selectRegion("Alberta");
 
 
+    }
+
+
+    /**
+     * @author The Elite Gentleman
+     *
+     */
+    public enum MyType {
+        ONE("This is number one"),
+        STRING_TWO("TWO");
+
+
+        private final String text;
+
+        /**
+         * @param text
+         */
+        private MyType(final String text) {
+            this.text = text;
+        }
+
+        /* (non-Javadoc)
+         * @see java.lang.Enum#toString()
+         */
+        @Override
+        public String toString() {
+            return text;
+        }
+    }
+
+
+    @Test
+    public void testenum(){
+        System.out.println(MyType.ONE.text);
+
+        printService(ClinicalSoftware.CLOUDAPPOINTMENTS);
+
+    }
+
+    private void printService(ClinicalSoftware software) {
+        System.out.println(software.getName());
     }
 
 }

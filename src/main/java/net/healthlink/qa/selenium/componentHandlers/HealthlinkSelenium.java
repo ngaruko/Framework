@@ -56,8 +56,9 @@ public class HealthlinkSelenium {
 
     private final WaitHandler waitHandler = new WaitHandler();
     private final WindowHandler windowHandler = new WindowHandler();
-    
-    
+    private RadioButtonHandler radioButtonHandler=new RadioButtonHandler();
+
+
     public AlertHandler alertHandler() {
         return alertHandler;
     }
@@ -105,7 +106,11 @@ public class HealthlinkSelenium {
     public TextboxHandler textboxHandler() {
         return textboxHandler;
     }
-    
+
+
+    public RadioButtonHandler radioButtonHandler() {
+        return radioButtonHandler;
+    }
 
     
     public WaitHandler waitHandler() {

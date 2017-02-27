@@ -10,35 +10,29 @@
  */
 package net.healthlink.qa.selenium.PageObjects.serviceApplicationForm;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-
 /**
  * The purpose of this...
  *
  * @author beden
  */
-public class Page6 extends BaseForm{
-
-    private By prefix;
-    private By firstNameTextBox;
-    private By lastNameTextBox;
-    private By jobTitleTextBox;
-    private By providerIdTypeDropDown;
-    private By providerIdTextBox;
-    private By publishInDirectoryCheckBox;
-    private By specialityDropDown;
-    private By addAnotherProviderButton;
-
-    //todo two enums:on this form
+public enum HealthLinkService {
 
 
+        HMS("HealthLink Secure Messaging"),
+                GENSOLVE("HMS Gensolve Cloud Based Clinical Software"),
+                ENDGAME("HMS EndGame Cloud Based Clinical Software");
+
+        private String name;
 
 
-    //provider details
-    public Page6(WebDriver webdriver) {
-        super(webdriver);
-    }
+    HealthLinkService(String name){
+            this.name=name;
+        }
+
+public String getName(){
+        return name;
+}
+
 
 
 

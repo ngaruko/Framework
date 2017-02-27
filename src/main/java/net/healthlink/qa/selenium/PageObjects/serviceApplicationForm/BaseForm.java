@@ -12,6 +12,7 @@ package net.healthlink.qa.selenium.PageObjects.serviceApplicationForm;
 
 import net.healthlink.qa.selenium.PageObjects.BaseObject;
 import net.healthlink.qa.selenium.componentHandlers.ElementHandler;
+import net.healthlink.qa.selenium.componentHandlers.HealthlinkSelenium;
 import net.healthlink.qa.selenium.componentHandlers.WaitHandler;
 import net.healthlink.qa.selenium.utils.Constants;
 import org.openqa.selenium.By;
@@ -31,7 +32,7 @@ public class BaseForm extends BaseObject {
     private By getHealthLinkLocator;
     private By previousPageButtonLocator;
     private By nextPageButtonLocator;
-
+    HealthlinkSelenium healthlinkSelenium = new HealthlinkSelenium();
 
     public BaseForm(WebDriver webdriver) {
         super(webdriver);
@@ -39,10 +40,10 @@ public class BaseForm extends BaseObject {
         homeLogoLocator = By.cssSelector("a[title='Home']");
         contactDetailsLocator = By.className("ContactDetails HeaderText");
         contactUsLocator = By.linkText("Contact Us");
-        formTitleLocator=By.tagName("h1");
-        getHealthLinkLocator= By.linkText("Get HealthLink");
-        previousPageButtonLocator=By.cssSelector("input[value='Previous Page']");
-        nextPageButtonLocator=By.cssSelector("input[value='Next Page']");
+        formTitleLocator = By.tagName("h1");
+        getHealthLinkLocator = By.linkText("Get HealthLink");
+        previousPageButtonLocator = By.cssSelector("input[value='Previous Page']");
+        nextPageButtonLocator = By.cssSelector("input[value='Next Page']");
     }
 
     public void goTo() throws InterruptedException {
@@ -50,6 +51,15 @@ public class BaseForm extends BaseObject {
 //        waitForElementToAppear(homeLogoLocator);
 
         //new WaitHandler().waitForWebElementInPage(homeLogoLocator,Constants.ELEMENT_LOAD_TIMEOUT);
+    }
+
+    public void goNext() {
+        healthlinkSelenium.elementHandler().getElement(nextPageButtonLocator).click();
+    }
+
+    public void goBack() {
+        healthlinkSelenium.elementHandler().getElement(previousPageButtonLocator).click();
+
     }
 
 }

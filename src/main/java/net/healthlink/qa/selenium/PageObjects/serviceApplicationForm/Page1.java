@@ -24,20 +24,23 @@ public class Page1 extends BaseForm {
 
     private By healthLinkSecureMessageRadioButtonLocator;//"HealthLink Secure Messaging"
     private By gensolveRadioButton;
-    private By elndGameRadioButton;
-    private  String serviceName;
+    private By endGameRadioButton;
+
     private By serviceRadioButtonLocator;
 
     public Page1(WebDriver webdriver) {
         super(webdriver);
-        healthLinkSecureMessageRadioButtonLocator = By.linkText("HealthLink Secure Messaging");
+
     }
 
-    public void chooseService(String serviceName){
-        serviceRadioButtonLocator=By.linkText(serviceName);
+    //using link text
 
-        RadioButtonHandler handler= new RadioButtonHandler();
+    public void chooseService(HealthLinkService service) {
+       serviceRadioButtonLocator = By.linkText(service.getName());
+        RadioButtonHandler handler = new RadioButtonHandler();
         handler.clickRadioButton(serviceRadioButtonLocator);
 
     }
+
+
 }
