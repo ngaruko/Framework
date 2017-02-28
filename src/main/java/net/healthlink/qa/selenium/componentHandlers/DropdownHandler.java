@@ -27,8 +27,8 @@ import com.relevantcodes.extentreports.ExtentTest;
 import com.relevantcodes.extentreports.LogStatus;
 
 
-public class DropdownHandler {
-    private ElementHandler elementHandler = new ElementHandler();
+public class DropdownHandler extends ElementHandler{
+    //private ElementHandler elementHandler = new ElementHandler();
 
 
     private int webDriverWait_visibilityOfElementLocated = 5;
@@ -40,10 +40,10 @@ public class DropdownHandler {
         WebElement webElement = null;
         Select select;
 
-        if (elementHandler.isElementPresent(elementLocator)) {
+        if (isElementPresent(elementLocator)) {
             try {
                 new WaitHandler().waitUntil(ExpectedConditions.visibilityOfElementLocated(elementLocator), Constants.WAIT_VISIBILITY_OF_ELEMENT);
-                webElement = elementHandler.getElement(elementLocator);
+                webElement = getElement(elementLocator);
                 select = new Select(webElement);
                 select.selectByVisibleText(visibleText);
             } catch (Exception e) {
@@ -64,7 +64,7 @@ public class DropdownHandler {
         WebElement webElement = null;
         Select select;
 
-        if (elementHandler.isElementPresent(elementLocator)) {
+        if (isElementPresent(elementLocator)) {
             try {
                 webDriverWait = new WebDriverWait(HealthlinkSelenium.driver, webDriverWait_visibilityOfElementLocated);
                 webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(elementLocator));
@@ -72,7 +72,7 @@ public class DropdownHandler {
                 // After wait, go forward if element is not visible
             }
             try {
-                webElement = elementHandler.getElement(elementLocator);
+                webElement = getElement(elementLocator);
                 select = new Select(webElement);
                 select.selectByIndex(index);
 
@@ -93,7 +93,7 @@ public class DropdownHandler {
         WebElement webElement = null;
         Select select;
 
-        if (elementHandler.isElementPresent(elementLocator)) {
+        if (isElementPresent(elementLocator)) {
             try {
                 webDriverWait = new WebDriverWait(HealthlinkSelenium.driver, webDriverWait_visibilityOfElementLocated);
                 webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(elementLocator));
@@ -101,7 +101,7 @@ public class DropdownHandler {
                 // After wait, go forward if element is not visible
             }
             try {
-                webElement = elementHandler.getElement(elementLocator);
+                webElement = getElement(elementLocator);
                 select = new Select(webElement);
                 select.deselectByVisibleText(visibleText);
 
@@ -122,7 +122,7 @@ public class DropdownHandler {
         WebElement webElement = null;
         Select select;
 
-        if (elementHandler.isElementPresent(elementLocator)) {
+        if (isElementPresent(elementLocator)) {
             try {
                 webDriverWait = new WebDriverWait(HealthlinkSelenium.driver, webDriverWait_visibilityOfElementLocated);
                 webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(elementLocator));
@@ -130,7 +130,7 @@ public class DropdownHandler {
                 // After wait, go forward if element is not visible
             }
             try {
-                webElement = elementHandler.getElement(elementLocator);
+                webElement = getElement(elementLocator);
                 select = new Select(webElement);
                 select.deselectAll();
 
@@ -154,7 +154,7 @@ public class DropdownHandler {
         String actualSelectedOption;
         boolean gotSelectedOption;
 
-        if (elementHandler.isElementPresent(elementLocator)) {
+        if (isElementPresent(elementLocator)) {
             try {
                 webDriverWait = new WebDriverWait(HealthlinkSelenium.driver, webDriverWait_visibilityOfElementLocated);
                 webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(elementLocator));
@@ -162,7 +162,7 @@ public class DropdownHandler {
                 // After wait, go forward if element is not visible
             }
             try {
-                webElement = elementHandler.getElement(elementLocator);
+                webElement = getElement(elementLocator);
                 select = new Select(webElement);
                 selectedOptionPath = select.getFirstSelectedOption();
                 actualSelectedOption = selectedOptionPath.getText();
@@ -194,7 +194,7 @@ public class DropdownHandler {
         String actualSelectedOption;
         boolean gotSelectedOption;
 
-        if (elementHandler.isElementPresent(elementLocator)) {
+        if (isElementPresent(elementLocator)) {
             try {
                 webDriverWait = new WebDriverWait(HealthlinkSelenium.driver, webDriverWait_visibilityOfElementLocated);
                 webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(elementLocator));
@@ -202,7 +202,7 @@ public class DropdownHandler {
                 // After wait, go forward if element is not visible
             }
             try {
-                webElement = elementHandler.getElement(elementLocator);
+                webElement = getElement(elementLocator);
                 select = new Select(webElement);
                 selectedOptionPath = select.getFirstSelectedOption();
                 actualSelectedOption = selectedOptionPath.getText();
@@ -235,7 +235,7 @@ public class DropdownHandler {
         String actualSelectedOption;
         boolean gotSelectedOption;
         // int elementCount = handleElements.getElementCount(elementLocator);
-        if (elementHandler.isElementPresent(elementLocator)) {
+        if (isElementPresent(elementLocator)) {
             try {
                 webDriverWait = new WebDriverWait(HealthlinkSelenium.driver, webDriverWait_visibilityOfElementLocated);
                 webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(elementLocator));
@@ -243,7 +243,7 @@ public class DropdownHandler {
                 // After wait, go forward if element is not visible
             }
             try {
-                webElement = elementHandler.getElement(elementLocator);
+                webElement = getElement(elementLocator);
                 select = new Select(webElement);
                 selectedOptionPath = select.getFirstSelectedOption();
                 actualSelectedOption = selectedOptionPath.getText();
@@ -276,9 +276,9 @@ public class DropdownHandler {
         boolean verifiedOptionsCount = false;
         int actualNumberOfOptions;
 
-        if (elementHandler.isElementPresent(elementLocator)) {
+        if (isElementPresent(elementLocator)) {
             try {
-                webElement = elementHandler.getElement(elementLocator);
+                webElement = getElement(elementLocator);
                 select = new Select(webElement);
                 dropdownOptions = select.getOptions();
                 gotOptions = true;

@@ -38,7 +38,7 @@ public class Page1 extends BaseForm {
     public void chooseService(HealthLinkService service) {
        serviceRadioButtonLocator = By.linkText(service.getName());
         RadioButtonHandler handler = new RadioButtonHandler();
-        handler.clickRadioButton(serviceRadioButtonLocator);
+        handler.clickElement(serviceRadioButtonLocator);
 
     }
 

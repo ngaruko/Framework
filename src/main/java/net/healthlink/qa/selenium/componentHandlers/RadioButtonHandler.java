@@ -18,20 +18,12 @@ import org.openqa.selenium.WebElement;
  *
  * @author beden
  */
-public class RadioButtonHandler {
+public class RadioButtonHandler extends ElementHandler{
 
-    private  WebElement element;
-    private  ElementHandler elementHandler;
-
-    public  void clickRadioButton(By locator)
-    {
-        element = elementHandler.getElement(locator);
-        element.click();
-    }
 
     public boolean isRadioButtonSelected(By locator) {
-        element = elementHandler.getElement(locator);
-        String flag = element.getAttribute("checked");
+
+        String flag = getElement(locator).getAttribute("checked");
 
         return flag != null && ("true".equals(flag) || "checked".equals(flag));
     }

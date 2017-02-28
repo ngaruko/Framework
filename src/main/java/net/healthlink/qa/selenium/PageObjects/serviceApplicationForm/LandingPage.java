@@ -10,12 +10,9 @@
  */
 package net.healthlink.qa.selenium.PageObjects.serviceApplicationForm;
 
-import net.healthlink.qa.selenium.componentHandlers.ElementHandler;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-
-import java.util.Objects;
 
 /**
  * The purpose of this...
@@ -31,7 +28,7 @@ public class LandingPage extends BaseForm {
 
     }
 
-    public void selectRegion(String region) throws InterruptedException {
+    public Page1 selectRegion(String region) throws InterruptedException {
 
        try {
            for (WebElement element : getLinks(driver)) {
@@ -45,8 +42,7 @@ public class LandingPage extends BaseForm {
        }catch (Exception e){
            System.out.println("GOT EXCEPTION: " + e.getMessage());
        }
-        //selectedregionLink = By.partialLinkText(region);
-      //  waitForElementToBeClickable(selectedregionLink);
-       // new ElementHandler().getElement(selectedregionLink).click();
+
+        return new Page1(driver);
     }
 }

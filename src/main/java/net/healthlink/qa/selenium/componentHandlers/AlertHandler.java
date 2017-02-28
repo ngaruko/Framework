@@ -47,7 +47,6 @@ public class AlertHandler {
 
     public boolean alertTextContains(String expectedText)
     {
-
         actualAlertText = getAlertText();
 
         return actualAlertText.trim().contains(expectedText.trim());

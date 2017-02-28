@@ -11,6 +11,7 @@
 
 package net.healthlink.qa.selenium.driver;
 
+import net.healthlink.qa.selenium.componentHandlers.HealthlinkSelenium;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -33,6 +34,49 @@ public class WebDriverWrapper {
     public WebDriver getDriver() {
         return driver;
     }
+
+    public void goBack() {
+        driver.navigate().back();
+    }
+
+    public void forward() {
+        driver.navigate().forward();
+    }
+
+    public void refreshPage() {
+        driver.navigate().refresh();
+    }
+
+
+    public String getUrl() {
+        return driver.getCurrentUrl();
+    }
+
+
+    public void quitBrowser() {
+
+        if (driver != null) {
+           driver.quit();
+        }
+    }
+
+    /**
+     * Close one browser window (active window).
+     */
+    public void closeBrowser() {
+       driver.close();
+    }
+
+    /**
+     * Maximize browser window.
+     */
+    public void maximizeBrowser() {
+        driver.manage().window().maximize();
+
+    }
+
+
+
 
     public WebElement findElement(By by) {
         return driver.findElement(by);

@@ -19,30 +19,6 @@ import org.openqa.selenium.WebElement;
  *
  * @author beden
  */
-public class ButtonHandler {
-
-    private  WebElement element;
-    private  ElementHandler elementHandler=new ElementHandler();
-
-
-    public  void clickButton(By locator)
-    {
-        element = elementHandler.getElement(locator);
-        element.click();
-    }
-
-    public  boolean isButtonEnabled(By locator)
-    {
-        element = elementHandler.getElement(locator);
-        return element.isEnabled();
-    }
-
-    public  String getButtonText(By locator)
-    {
-        element = elementHandler.getElement(locator);
-        if (element.getAttribute("value") == null)
-            return StringUtils.EMPTY;
-        return element.getAttribute("value");
-    }
+public class ButtonHandler extends ElementHandler {
 
 }

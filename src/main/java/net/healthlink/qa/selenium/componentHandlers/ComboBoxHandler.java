@@ -23,33 +23,33 @@ import java.util.stream.Stream;
  *
  * @author beden
  */
-public class ComboBoxHandler {
+public class ComboBoxHandler extends  ElementHandler {
 
     private  Select select;
-    private  ElementHandler elementHandler=new ElementHandler();
 
     public  void SelectElement(By locator, int index)
     {
-        select = new Select(elementHandler.getElement(locator));
+        clickElement(locator);
+        select = new Select(getElement(locator));
         select.selectByIndex(index);
     }
 
     public  void SelectElement(By locator, String visibleText)
     {
-        select = new Select(elementHandler.getElement(locator));
+        select = new Select(getElement(locator));
         select.selectByVisibleText(visibleText);
     }
 
     public  void SelectElementByValue(By locator, String valueTexts)
     {
-        select = new Select(elementHandler.getElement(locator));
+        select = new Select(getElement(locator));
         select.selectByValue(valueTexts);
     }
 
     public  List<String> GetAllItem(By locator)
     {
         ArrayList<String> results = new ArrayList<>();
-        select = new Select(elementHandler.getElement(locator));
+        select = new Select(getElement(locator));
         Stream<WebElement> stream=select.getOptions().stream();
         stream.forEach(webElement ->results.add(webElement.getText()));
         return results;

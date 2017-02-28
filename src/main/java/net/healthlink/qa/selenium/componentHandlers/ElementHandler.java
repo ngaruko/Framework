@@ -11,6 +11,7 @@
  */
 package net.healthlink.qa.selenium.componentHandlers;
 
+import net.healthlink.qa.selenium.utils.Constants;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
@@ -23,7 +24,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
  *
  * @author jaspal
  */
-public class ElementHandler {
+public class ElementHandler  {
 
 
    // private final ExtentTest extentLogger;
@@ -51,6 +52,7 @@ public class ElementHandler {
 
         if (isElementPresent(elementLocator))
 
+
             return HealthlinkSelenium.driver.findElement(elementLocator);
         else
             throw new NoSuchElementException("Element Not Found : " + elementLocator.toString());
@@ -63,6 +65,7 @@ public class ElementHandler {
             return getElementCount(elementLocator) >= 1;
 
         } catch (Exception e) {
+            System.out.println(e.getMessage());
 
             return false;
         }
@@ -110,6 +113,38 @@ public class ElementHandler {
         }
         int elementCount = HealthlinkSelenium.driver.findElements(elementLocator).size();
         return elementCount;
+    }
+
+
+
+    public void clickElement( By elementLocator) {
+        WebDriverWait webDriverWait;
+        WebElement webElement = null;
+
+        if (isElementPresent(elementLocator)) {
+            try {
+                webDriverWait = new WebDriverWait(HealthlinkSelenium.driver, Constants.WAIT_VISIBILITY_OF_ELEMENT);
+                webDriverWait.until(ExpectedConditions.elementToBeClickable(elementLocator));
+
+            }
+            catch (Throwable throwable ) {
+                // After wait, go forward if element is not clickable
+            }
+            try {
+                webElement =getElement(elementLocator);
+                webElement.click();
+
+            }
+            catch (Throwable throwable ) {
+
+                throw new RuntimeException("Step:- Click on element " + elementLocator + ".  Failure:- Unable to click on element, Exception occured: " + throwable.getMessage());
+            }
+        }
+        else  {
+
+            throw new RuntimeException("Step:- Click on element  Failure:- Unable to find element with locator: "+elementLocator);
+        }
+
     }
 
 

@@ -83,24 +83,6 @@ private int pageLoadTimeout = 60;
 
 //other
 
-    public static void goBack()
-    {
-        HealthlinkSelenium.driver.navigate().back();
-    }
 
-    public static void forward()
-    {
-        HealthlinkSelenium.driver.navigate().forward();
-    }
-
-    public static void refreshPage()
-    {
-       HealthlinkSelenium.driver.navigate().refresh();
-    }
-
-
-    public String getUrl(){
-        return HealthlinkSelenium.driver.getCurrentUrl();
-    }
 
 }

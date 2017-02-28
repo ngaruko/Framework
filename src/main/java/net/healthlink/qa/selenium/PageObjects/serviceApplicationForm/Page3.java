@@ -66,11 +66,11 @@ public class Page3 extends BaseForm{
 
     public void selectBillingAddress(BillingAddress billingAddress){
         switch (billingAddress) {
-            case STREET:healthlinkSelenium.radioButtonHandler().clickRadioButton(sameAsStreetRadioButton);
+            case STREET:healthlinkSelenium.radioButtonHandler().clickElement(sameAsStreetRadioButton);
                 break;
-            case POSTAL:healthlinkSelenium.radioButtonHandler().clickRadioButton(sameAsPostalRadioButton);
+            case POSTAL:healthlinkSelenium.radioButtonHandler().clickElement(sameAsPostalRadioButton);
                 break;
-            case DIFFERENT:healthlinkSelenium.radioButtonHandler().clickRadioButton(differentAddressRadionButton);
+            case DIFFERENT:healthlinkSelenium.radioButtonHandler().clickElement(differentAddressRadionButton);
                 break;
         }
 
@@ -79,11 +79,11 @@ public class Page3 extends BaseForm{
 
     public void selectEvidenceOfIdentity(Evidence evidence){
         switch (evidence) {
-            case DRIVERS:healthlinkSelenium.radioButtonHandler().clickRadioButton(driversLicenceRadioButton);
+            case DRIVERS:healthlinkSelenium.radioButtonHandler().clickElement(driversLicenceRadioButton);
                 break;
-            case BIRTH_CERTIFICATE: healthlinkSelenium.radioButtonHandler().clickRadioButton(birthCertificateRadioButton);
+            case BIRTH_CERTIFICATE: healthlinkSelenium.radioButtonHandler().clickElement(birthCertificateRadioButton);
                 break;
-            case PASSPORT:healthlinkSelenium.radioButtonHandler().clickRadioButton(passportRadioButton);
+            case PASSPORT:healthlinkSelenium.radioButtonHandler().clickElement(passportRadioButton);
                 break;
         }
 

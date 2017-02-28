@@ -14,6 +14,7 @@ import io.github.bonigarcia.wdm.ChromeDriverManager;
 import net.healthlink.qa.selenium.PageObjects.serviceApplicationForm.*;
 import net.healthlink.qa.selenium.componentHandlers.HealthlinkSelenium;
 import net.healthlink.qa.selenium.componentHandlers.WaitHandler;
+import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -37,28 +38,40 @@ public class FormTest {
     private static WebDriver driver;
 
     private static HealthlinkSelenium healthlinkSelenium = new HealthlinkSelenium();
+    private BaseForm form;
 
     @BeforeClass
     public static void initialize() {
         driver = healthlinkSelenium.getDriver();
-        driver.manage().window().maximize();
+
     }
 
     @Test
     public void LandingPageTest() throws InterruptedException {
-
-        // given
+                // given
         LandingPage landingPage = new LandingPage(driver);
 
         landingPage.goTo();
-
-        new WaitHandler().wait(1000);
-
-        landingPage.selectRegion("North Island");
-
+        //when
+       form= landingPage.selectRegion("North Island");
+        //then
         assertThat(new Page1(driver).isAt(1));
+    }
+
+    @Test
+    public void Page1Test() throws InterruptedException {
+
+             assertThat(new Page1(driver).isAt(1));
+
     }
 
 
 
-   }
+    @AfterClass
+    public static void tearDown() {
+        driver.close();
+        driver.quit();
+    }
+
+
+}

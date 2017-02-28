@@ -128,6 +128,7 @@ public class HealthlinkSelenium {
      * Get WebDriver object.
      */
     public WebDriver getDriver() {
+
         return driver;
     }
 
