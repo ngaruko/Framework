@@ -13,6 +13,7 @@ package net.healthlink.qa.selenium.componentHandlers;
 
 import java.util.Set;
 
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -175,4 +176,7 @@ public class WindowHandler {
         }
     }
 
+    public void maximize(WebDriver driver) {
+        driver.manage().window().maximize();
+    }
 }

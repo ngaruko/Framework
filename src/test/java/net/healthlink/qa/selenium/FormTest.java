@@ -14,6 +14,9 @@ import io.github.bonigarcia.wdm.ChromeDriverManager;
 import net.healthlink.qa.selenium.PageObjects.serviceApplicationForm.*;
 import net.healthlink.qa.selenium.componentHandlers.HealthlinkSelenium;
 import net.healthlink.qa.selenium.componentHandlers.WaitHandler;
+import net.healthlink.qa.selenium.componentHandlers.WindowHandler;
+import net.healthlink.qa.selenium.driver.DriverType;
+import net.healthlink.qa.selenium.driver.WebDriverWrapper;
 import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.BeforeClass;
@@ -37,12 +40,15 @@ public class FormTest {
 
     private static WebDriver driver;
 
-    private static HealthlinkSelenium healthlinkSelenium = new HealthlinkSelenium();
+    private static HealthlinkSelenium healthlinkSelenium ;
     private BaseForm form;
 
     @BeforeClass
     public static void initialize() {
-        driver = healthlinkSelenium.getDriver();
+        driver  =new HealthlinkSelenium().getDriver();
+        new WindowHandler().maximize(driver);
+
+        //healthlinkSelenium = new HealthlinkSelenium(new WebDriverWrapper(DriverType.CHROME).getDriver());
 
     }
 

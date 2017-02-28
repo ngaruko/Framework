@@ -34,6 +34,7 @@ public class HealthlinkSelenium {
     public static ExtentReporter extentReporter;
     public static ExtentTest extentLogger;
     public static WebDriver driver=new WebDriverWrapper(DriverType.CHROME).getDriver();
+
     
     private final AlertHandler alertHandler = new AlertHandler();
     private final BrowserHandler browserHandler = new BrowserHandler();
@@ -58,7 +59,8 @@ public class HealthlinkSelenium {
 
     private final WaitHandler waitHandler = new WaitHandler();
     private final WindowHandler windowHandler = new WindowHandler();
-    private RadioButtonHandler radioButtonHandler=new RadioButtonHandler();
+    private final RadioButtonHandler radioButtonHandler=new RadioButtonHandler();
+
 
 
     public AlertHandler alertHandler() {

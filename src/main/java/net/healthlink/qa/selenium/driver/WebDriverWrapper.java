@@ -36,7 +36,7 @@ public class WebDriverWrapper {
     }
 
     public void goBack() {
-        driver.navigate().back();
+        this.driver.navigate().back();
     }
 
     public void forward() {

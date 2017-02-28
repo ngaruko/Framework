@@ -47,12 +47,14 @@ public class Page2 extends BaseForm {
     private By postalLookupLink;
     private By postalCountryTextBox;
 
-    private HealthlinkSelenium healthlinkSelenium = new HealthlinkSelenium();
-
+     HealthlinkSelenium healthlinkSelenium;
 
 
     public Page2(WebDriver webdriver) {
         super(webdriver);
+
+
+        healthlinkSelenium=new HealthlinkSelenium();
         //initialise page elements
         legalNameTextBox = By.name("organisationname");
         knownAsTextBox = By.name("knownas");

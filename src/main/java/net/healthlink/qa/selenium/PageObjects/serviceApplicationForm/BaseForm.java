@@ -34,11 +34,12 @@ public class BaseForm extends BaseObject {
     private By nextPageButtonLocator;
     private By pageNumberLocator;
 
-    HealthlinkSelenium healthlinkSelenium = new HealthlinkSelenium();
+    HealthlinkSelenium healthlinkSelenium ; //= new HealthlinkSelenium();
 
     public BaseForm(WebDriver webdriver) {
         super(webdriver);
 
+healthlinkSelenium=new HealthlinkSelenium();
         homeLogoLocator = By.cssSelector("a[title='Home']");
         contactDetailsLocator = By.className("ContactDetails HeaderText");
         contactUsLocator = By.linkText("Contact Us");
